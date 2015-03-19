@@ -10,21 +10,22 @@ RUN apt-get install -y unzip git
 
 RUN adduser --disabled-password --gecos "" develop
 
+RUN mkdir /var/projects && \
+	chown develop:develop /var/projects
+
 RUN \
   cd /opt && unzip /tmp/*.zip && \
   chmod ugo+x $(ls -d -1 $PWD/**)/activator && \
   ln -s /opt/activator-* /opt/activator && \
   echo "export PATH=$PATH:/opt/activator" >> /etc/profile
 
-COPY start.sh /opt/
+COPY resources/start-activator.sh /opt/
 
-run chmod ugo+x /opt/start.sh
+run chmod ugo+x /opt/start-activator.sh
 
-# RUN \
-#  chown -R develop:develop /home/develop/*
-
+VOLUME ["/var/projects"]
 VOLUME ["/home/develop"]
 
 EXPOSE 9000
 
-ENTRYPOINT ["/opt/start.sh"]
+ENTRYPOINT ["/opt/start-activator.sh"]
