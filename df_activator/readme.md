@@ -2,6 +2,8 @@ This image provides a Dockerized development environment for Typesafe Activator.
 
 First use 'build.sh' to to create a new image with the current version of the Activator and place it in your local Docker repository. It does not require any parameters, so if you are ok with default name of 'jpreissler/activator' just run it and be done. When a new version of the Activator is release, simply re-run the script to update your local image.
 
+Note: The build.sh script uses jq (https://github.com/stedolan/jq) as a lightweigth JSON parser to extract the location of the current Activator version. On Debian and Ubuntu it is available via apt-get.
+
 Now you can start working with projects using this image. For this purpose the script 'd.activator' is provided. Just put this on your path and use the following steps to get up and running:
 
 1. Create a new directory with two sub-directories 
