@@ -1,2 +1,2 @@
 #!/bin/bash
-docker run -it --rm -v $PWD/cache:/home/develop -v $PWD/projects:/var/projects -p 9000:9000 jpreissler/activator $1
+docker run -it --rm -v $PWD/cache:/home/develop -v $PWD/project:/var/project -p 9000:9000 jpreissler/activator $1
