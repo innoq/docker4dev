@@ -1,2 +1,20 @@
 #!/bin/bash
-docker run -it --rm -v $PWD/cache:/home/develop -v $PWD/project:/var/project -p 9000:9000 jpreissler/activator $1
+
+if [ -n "$CACHE_DIR" ]
+then
+	export CACHE=$CACHE_DIR
+elif [ -d $HOME/cache ] 
+then
+	export CACHE=$HOME/cache
+fi
+
+if [ -n "$CACHE" ]
+then
+	echo Using cache from $CACHE
+	export CACHE_CMD="-v $CACHE:/home/develop"
+else
+	echo "No cache specified - dependencies will be transient"
+	echo "Create dir $HOME/cache or specify cache dir in $CACHE_DIR to persist dependencies"
+fi
+
+docker run -it --rm $CACHE_CMD -v $PWD:/var/project -p 9000:9000 jpreissler/activator $@
